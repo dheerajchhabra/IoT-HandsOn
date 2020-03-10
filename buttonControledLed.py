@@ -1,20 +1,25 @@
 import RPi.GPIO as GPIO
 
+led_State = GPIO.LOW
+
 def button_release(channel1, channel2):
-    if (GPIO.input(18) and GPIO.output(23) == GPIO.LOW):
+    if (GPIO.input(18) and led_State == GPIO.LOW):
         #print("Led On")
         GPIO.output(23, GPIO.HIGH)
-    elif (GPIO.input(18) and GPIO.output(23) == GPIO.HIGH):
+        led_State = GPIO.HIGH
+    elif (GPIO.input(18) and led_State == GPIO.HIGH):
         #print("Led Off")
         GPIO.output(23, GPIO.HIGH)
-    '''
-    elif (GPIO.input(18) and GPIO.output(23) == GPIO.HIGH):
+        led_State = GPIO.HIGH
+    elif (NOT GPIO.input(18) and led_State == GPIO.HIGH):
         #print("Led On")
-        GPIO.output(23, GPIO.HIGH)
-    elif (GPIO.input(18) and GPIO.output(23) == GPIO.LOW):
+        GPIO.output(23, GPIO.LOW)
+        led_State = GPIO.LOW
+    elif (NOT GPIO.input(18) and led_State == GPIO.LOW):
         #print("Led Off")
-        GPIO.output(23, GPIO.HIGH)
-    '''
+        GPIO.output(23, GPIO.LOW)
+        led_State = GPIO.LOW
+    
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
